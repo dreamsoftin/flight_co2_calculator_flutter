@@ -34,7 +34,7 @@ class LocationCoordinate2D {
   }
 }
 
-class Airport{
+class Airport {
   Airport({
     @required this.name,
     @required this.city,
@@ -58,7 +58,9 @@ class Airport{
   //final String source; // = "OurAirports"
 
   factory Airport.fromLine(String line) {
-    final components = line.split(",");
+    final components = RegExp(
+      r'(".*?"|[^",\s]+)(?=\s*,|\s*$)',
+    ).allMatches(line).map((m) => m.group(0)).toList();
     if (components.length < 8) {
       return null;
     }
@@ -66,15 +68,16 @@ class Airport{
     String city = unescapeString(components[2]);
     String country = unescapeString(components[3]);
     String iata = unescapeString(components[4]);
-    if (iata == '\\N') { // placeholder for missing iata code
+    if (iata == '\\N') {
+      // placeholder for missing iata code
       iata = null;
     }
     String icao = unescapeString(components[5]);
     try {
       double latitude = double.parse(unescapeString(components[6]));
       double longitude = double.parse(unescapeString(components[7]));
-      final location = LocationCoordinate2D(
-          latitude: latitude, longitude: longitude);
+      final location =
+          LocationCoordinate2D(latitude: latitude, longitude: longitude);
       return Airport(
         name: name,
         city: city,
@@ -89,8 +92,8 @@ class Airport{
         // at index 7 and 8
         double latitude = double.parse(unescapeString(components[7]));
         double longitude = double.parse(unescapeString(components[8]));
-        final location = LocationCoordinate2D(
-            latitude: latitude, longitude: longitude);
+        final location =
+            LocationCoordinate2D(latitude: latitude, longitude: longitude);
         return Airport(
           name: name,
           city: city,
