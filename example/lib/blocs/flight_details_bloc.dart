@@ -22,16 +22,16 @@ class FlightDetails {
     this.flightClass = FlightClass.economy,
     this.flightType = FlightType.oneWay,
   });
-  final Airport departure;
-  final Airport arrival;
+  final Airport? departure;
+  final Airport? arrival;
   final FlightClass flightClass;
   final FlightType flightType;
 
   FlightDetails copyWith(
-      {Airport departure,
-      Airport arrival,
-      FlightClass flightClass,
-      FlightType flightType}) {
+      {Airport? departure,
+      Airport? arrival,
+      FlightClass? flightClass,
+      FlightType? flightType}) {
     return FlightDetails(
       departure: departure ?? this.departure,
       arrival: arrival ?? this.arrival,
@@ -44,16 +44,16 @@ class FlightDetails {
 /// Model for the FlightCalculationCard
 class FlightData {
   FlightData({this.distanceKm, this.co2e});
-  final double distanceKm;
-  final double co2e;
+  final double? distanceKm;
+  final double? co2e;
 
   String get distanceFormatted {
-    return distanceKm != null ? '${distanceKm.roundToDouble().toInt()} km' : '';
+    return distanceKm != null ? '${distanceKm!.roundToDouble().toInt()} km' : '';
   }
 
   String get co2eFormatted {
     if (co2e != null) {
-      double tonnes = co2e / 1000.0;
+      double tonnes = co2e! / 1000.0;
       final formatter = NumberFormat.decimalPattern();
       return '${formatter.format(tonnes)} t';
     }
@@ -62,10 +62,10 @@ class FlightData {
 
   /// factory method to calculate the distance and co2 from the flight details
   factory FlightData.fromDetails(FlightDetails flightDetails) {
-    double distanceKm;
-    double co2e;
-    Airport departure = flightDetails.departure;
-    Airport arrival = flightDetails.arrival;
+    double? distanceKm;
+    double? co2e;
+    Airport? departure = flightDetails.departure;
+    Airport? arrival = flightDetails.arrival;
     if (departure != null && arrival != null) {
       double multiplier =
           flightDetails.flightType == FlightType.oneWay ? 1.0 : 2.0;
@@ -82,7 +82,7 @@ class FlightData {
 
 /// Model for the FlightPage
 class Flight {
-  Flight({@required this.details, @required this.data});
+  Flight({required this.details, required this.data});
   final FlightDetails details;
   final FlightData data;
 
@@ -95,10 +95,10 @@ class Flight {
   }
 
   Flight copyWith({
-    Airport departure,
-    Airport arrival,
-    FlightClass flightClass,
-    FlightType flightType,
+    Airport? departure,
+    Airport? arrival,
+    FlightClass? flightClass,
+    FlightType? flightType,
   }) {
     // get existing details and update
     FlightDetails flightDetails = details.copyWith(
@@ -119,15 +119,15 @@ class Flight {
 
 /// Bloc used by the FlightPage
 class FlightDetailsBloc {
-  BehaviorSubject _flightSubject =
+  BehaviorSubject<Flight> _flightSubject =
       BehaviorSubject<Flight>.seeded(Flight.initialData());
-  Stream<Flight> get flightStream => _flightSubject.controller.stream;
+  Stream<Flight> get flightStream => _flightSubject.stream;
 
   void updateWith({
-    Airport departure,
-    Airport arrival,
-    FlightClass flightClass,
-    FlightType flightType,
+    Airport? departure,
+    Airport? arrival,
+    FlightClass? flightClass,
+    FlightType? flightType,
   }) {
     // get new value by updating existing one
     Flight newValue = _flightSubject.value.copyWith(

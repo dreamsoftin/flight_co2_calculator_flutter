@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart' show IterableNullableExtension;
 import 'package:flight_co2_calculator_flutter/airport.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
@@ -6,7 +7,7 @@ class AirportDataReader {
     final data = await rootBundle.loadString(path);
     return data.split('\n')
         .map((line) => Airport.fromLine(line))
-        .where((airport) => airport != null)
+        .whereNotNull()
         .toList();
   }
 }

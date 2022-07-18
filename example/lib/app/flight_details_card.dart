@@ -14,13 +14,13 @@ import 'package:flutter/material.dart';
 
 class FlightDetailsCard extends StatelessWidget {
   FlightDetailsCard({
-    @required this.flightDetails,
-    @required this.flightDetailsBloc,
-    @required this.airportLookup,
+    required this.flightDetails,
+    required this.flightDetailsBloc,
+    required this.airportLookup,
   });
   final FlightDetails flightDetails;
   final FlightDetailsBloc flightDetailsBloc;
-  final AirportLookup airportLookup;
+  final AirportLookup? airportLookup;
 
   final Map<FlightClass, Widget> flightClassChildren = const <FlightClass, Widget>{
     FlightClass.economy: Text('Economy'),
@@ -33,8 +33,8 @@ class FlightDetailsCard extends StatelessWidget {
     FlightType.twoWays: Text('Return'),
   };
 
-  Future<Airport> _showSearch(BuildContext context) async {
-    return await showSearch<Airport>(
+  Future<Airport?> _showSearch(BuildContext context) async {
+    return await showSearch<Airport?>(
         context: context,
         delegate: AirportSearchDelegate(
           airportLookup: airportLookup,

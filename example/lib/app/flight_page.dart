@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 
 class FlightPage extends StatelessWidget {
   FlightPage({this.airportLookup});
-  final AirportLookup airportLookup;
+  final AirportLookup? airportLookup;
 
   @override
   Widget build(BuildContext context) {
@@ -47,11 +47,11 @@ class FlightPage extends StatelessWidget {
               children: <Widget>[
                 FlightDetailsCard(
                   airportLookup: airportLookup,
-                  flightDetails: snapshot.data.details,
+                  flightDetails: snapshot.data!.details,
                   flightDetailsBloc: flightDetailsBloc,
                 ),
                 FlightCalculationCard(
-                  flightCalculationData: snapshot.data.data,
+                  flightCalculationData: snapshot.data!.data,
                 ),
                 Expanded(child: Container()),
                 AutoSizeText(

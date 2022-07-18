@@ -5,7 +5,7 @@ author: Andrea Bizzotto <bizz84@gmail.com>
 homepage: https://github.com/bizz84/flight_co2_calculator_flutter
 
 environment:
-  sdk: ">=2.0.0-dev.68.0 <3.0.0"
+  sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
   flutter:
@@ -15,6 +15,7 @@ dependencies:
 # following page: https://www.dartlang.org/tools/pub/pubspec
 
 # The following section is specific to Flutter.
+  collection: ^1.15.0-nullsafety.4
 flutter:
   plugin:
     androidPackage: com.codingwithflutter.flightco2calculatorflutter

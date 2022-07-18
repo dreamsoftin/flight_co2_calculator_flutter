@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class FlightCalculationCard extends StatelessWidget {
   FlightCalculationCard({this.flightCalculationData});
-  final FlightData flightCalculationData;
+  final FlightData? flightCalculationData;
 
   @override
   Widget build(BuildContext context) {
@@ -19,13 +19,13 @@ class FlightCalculationCard extends StatelessWidget {
             Expanded(
               child: FlightCalculationDataItem(
                 title: 'Distance',
-                body: flightCalculationData.distanceFormatted,
+                body: flightCalculationData!.distanceFormatted,
               ),
             ),
             Expanded(
               child: FlightCalculationDataItem(
                 title: 'Estimated CO2e',
-                body: flightCalculationData.co2eFormatted,
+                body: flightCalculationData!.co2eFormatted,
               ),
             ),
           ],
@@ -37,8 +37,8 @@ class FlightCalculationCard extends StatelessWidget {
 
 class FlightCalculationDataItem extends StatelessWidget {
   FlightCalculationDataItem({this.title, this.body});
-  final String title;
-  final String body;
+  final String? title;
+  final String? body;
 
   @override
   Widget build(BuildContext context) {
@@ -46,11 +46,11 @@ class FlightCalculationDataItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          title,
+          title!,
           style: TextStyles.caption,
         ),
         Text(
-          body,
+          body!,
           style: TextStyle(
             fontSize: 20.0,
             fontWeight: FontWeight.w500,

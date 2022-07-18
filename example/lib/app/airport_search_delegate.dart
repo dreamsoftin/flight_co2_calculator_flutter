@@ -2,9 +2,9 @@ import 'package:flight_co2_calculator_flutter/airport.dart';
 import 'package:flight_co2_calculator_flutter/airport_lookup.dart';
 import 'package:flutter/material.dart';
 
-class AirportSearchDelegate extends SearchDelegate<Airport> {
-  AirportSearchDelegate({@required this.airportLookup});
-  final AirportLookup airportLookup;
+class AirportSearchDelegate extends SearchDelegate<Airport?> {
+  AirportSearchDelegate({required this.airportLookup});
+  final AirportLookup? airportLookup;
 
   @override
   Widget buildLeading(BuildContext context) {
@@ -34,7 +34,7 @@ class AirportSearchDelegate extends SearchDelegate<Airport> {
     if (query.isEmpty) {
       return Container();
     }
-    final searched = airportLookup.searchString(query);
+    final searched = airportLookup!.searchString(query);
     if (searched.length == 0) {
       return AirportSearchPlaceholder(title: 'No results');
     }
@@ -68,7 +68,7 @@ class AirportSearchDelegate extends SearchDelegate<Airport> {
 }
 
 class AirportSearchPlaceholder extends StatelessWidget {
-  AirportSearchPlaceholder({@required this.title});
+  AirportSearchPlaceholder({required this.title});
   final String title;
   @override
   Widget build(BuildContext context) {
@@ -76,7 +76,7 @@ class AirportSearchPlaceholder extends StatelessWidget {
     return Center(
       child: Text(
         title,
-        style: theme.textTheme.headline,
+        style: theme.textTheme.headline6,
         textAlign: TextAlign.center,
       ),
     );
@@ -84,10 +84,10 @@ class AirportSearchPlaceholder extends StatelessWidget {
 }
 
 class AirportSearchResultTile extends StatelessWidget {
-  const AirportSearchResultTile({@required this.airport, @required this.searchDelegate});
+  const AirportSearchResultTile({required this.airport, required this.searchDelegate});
 
   final Airport airport;
-  final SearchDelegate<Airport> searchDelegate;
+  final SearchDelegate<Airport?> searchDelegate;
 
   @override
   Widget build(BuildContext context) {
@@ -98,12 +98,12 @@ class AirportSearchResultTile extends StatelessWidget {
       dense: true,
       title: Text(
         title,
-        style: theme.textTheme.body2,
+        style: theme.textTheme.bodyText2,
         textAlign: TextAlign.start,
       ),
       subtitle: Text(
         subtitle,
-        style: theme.textTheme.body1,
+        style: theme.textTheme.bodyText1,
         textAlign: TextAlign.start,
       ),
       onTap: () => searchDelegate.close(context, airport),

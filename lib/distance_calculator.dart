@@ -14,11 +14,11 @@ class DistanceCalculator {
     double rkm = 6371.0;// Earth radius in kilometers
     double rm = rkm * 1000.0;// Radius in meters
 
-    double dlat_rad = (rhs.latitude - lhs.latitude) * rad_per_deg; // Delta, converted to rad
-    double dlon_rad = (rhs.longitude - lhs.longitude) * rad_per_deg;
+    double dlat_rad = (rhs.latitude! - lhs.latitude!) * rad_per_deg; // Delta, converted to rad
+    double dlon_rad = (rhs.longitude! - lhs.longitude!) * rad_per_deg;
 
-    double lat1_rad = lhs.latitude * rad_per_deg;
-    double lat2_rad = rhs.latitude * rad_per_deg;
+    double lat1_rad = lhs.latitude! * rad_per_deg;
+    double lat2_rad = rhs.latitude! * rad_per_deg;
 
     double sinDlat = sin(dlat_rad/2);
     double sinDlon = sin(dlon_rad/2);

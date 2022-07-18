@@ -16,7 +16,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   MyApp({this.airportLookup});
-  final AirportLookup airportLookup;
+  final AirportLookup? airportLookup;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: Provider<FlightDetailsBloc>(
-        builder: (context) => FlightDetailsBloc(),
+        create: (context) => FlightDetailsBloc(),
         dispose: (context, bloc) => bloc.dispose(),
         child: FlightPage(airportLookup: airportLookup),
       ),
